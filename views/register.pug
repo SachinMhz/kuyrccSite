@@ -1,0 +1,16 @@
+extends layout
+
+
+block content
+	#SignUp.container.h-100
+		.row.h-100.text-center.justify-content-center.align-items-center
+			form.form-group(method='POST', action='/KUYRCC/SignUP/')
+				label Name:
+				input#name.form-control(name="name",type='text')
+				label(for='email') Email address:
+				input#email.form-control(name="email",type='email')
+				label(for='pwd') Password:
+				input#pwd.form-control(name="password",type='password')
+				label(for='pwd') Confirm Password:
+				input#pwd.form-control(type='password')
+				button.btn.btn-primary.mt-3(type='submit', value='Submit') Register
