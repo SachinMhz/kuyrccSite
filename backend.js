@@ -32,12 +32,15 @@ backend.use(session({
   saveUninitialized: true
 }));
 
-//express Message middle Middlewar
+//express Message  Middlewar
 backend.use(require('connect-flash')());
 backend.use(function (req, res, next) {
   res.locals.messages = require('express-messages')(req, res);
   next();
 });
+
+//express validator Middlewar
+backend.use(expressValidator());
 
 //Bring in models
 let dbvariable = require('./models/users');
@@ -100,21 +103,38 @@ backend.get("/users/:id",function(req,res){
 //add registration route
 backend.post('/:id', function(req, res){
 	console.log('submitted');
-	let x= new dbvariable();
-	x.name=req.body.RegName;
-	x.email=req.body.RegEmail;
-	x.password=req.body.RegPassword;
+	req.checkBody('RegName','UserName is required').notEmpty();
+	req.checkBody('RegPassword')
+		    .not().isIn(['123', 'password', 'god']).withMessage('Do not use a common word as the password')
+		    .isLength({ min: 5 }).withMessage('must be at least 5 chars long and contain number').matches(/\d/);
+	// req.checkBody('RegCPassword').custom((value, { req }) => {
+	//   if (value != req.body.RegPassword) {
+	//     throw new Error('Password confirmation does not match password');
+	//   }return true;
+	// });
+	//get errors
+	let errors = req.validationErrors();
+	if(errors){
+		res.render('frontend',{
+			errors:errors
+		});
+	}else{
+			let x= new dbvariable();
+			x.name=req.body.RegName;
+			x.email=req.body.RegEmail;
+			x.password=req.body.RegPassword;
 
-	x.save(function(err){
-		if(err){
-			console.log(err);
-			return;
-		}
-		else{
-			req.flash('success','User is added');
-			res.redirect('/frontend');
-		}
-	});
+			x.save(function(err){
+				if(err){
+					console.log(err);
+					return;
+				}
+				else{
+					req.flash('success','User is added');
+					res.redirect('/frontend');
+				}
+			});
+	}
 	return;
 });
 

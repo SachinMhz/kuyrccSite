@@ -63,6 +63,9 @@ html
 						h4.modal-title.w-100.font-weight-bold Sign up
 						button.close(type='button', data-dismiss='modal')
 					.modal-body.mx-3
+						if errors
+							each error, i in errors
+								div(class="alert alert-danger") #{error.msg}
 						form(method="POST",action='#')
 							.form-group.md-form.mb-4
 								label(for='text') Name
