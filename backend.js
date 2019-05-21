@@ -2,6 +2,9 @@ const express = require('express');
 const path=require('path');
 const mongoose=require('mongoose');
 const bodyParser=require('body-parser');
+const expressValidator = require('express-validator');
+const flash =  require('connect-flash');
+const session = require('express-session');
 
 mongoose.connect('mongodb://localhost:27017/KUYRCCdb');
 let db = mongoose.connection;
@@ -20,6 +23,21 @@ db.on('error', function(err){
 const backend=express();
 //defining path to img folder
 backend.use(express.static('img'));
+//backend.use(express.static(path.join(__dirname,'nameOfFile')));
+
+//express Session middle Middleware
+backend.use(session({
+  secret: 'keyboard cat',
+  resave: true,
+  saveUninitialized: true
+}));
+
+//express Message middle Middlewar
+backend.use(require('connect-flash')());
+backend.use(function (req, res, next) {
+  res.locals.messages = require('express-messages')(req, res);
+  next();
+});
 
 //Bring in models
 let dbvariable = require('./models/users');
@@ -49,14 +67,14 @@ backend.get('/frontend', function(req, res){
 });
 
 //add route
-backend.get('/KUYRCC/SignUP/', function(req, res){
+backend.get('/registerPage', function(req, res){
 	res.render('register',{
 		title:'Register'
 	});
 });
 
 //for checking if users are registered in database or not route
-backend.get('/signup/lists', function(req, res){
+backend.get('/checklist', function(req, res){
 	dbvariable.find({}, function(err, users){
 		if(err){
 			console.log(err);
@@ -69,14 +87,23 @@ backend.get('/signup/lists', function(req, res){
 	});
 });
 
+//getting single user information
+backend.get("/users/:id",function(req,res){
+
+	dbvariable.findById(req.params.id,function(err,users){
+		res.render('user',{
+			title:"Users Details",
+			users:users
+		});
+	});
+});
 //add registration route
-backend.post('/KUYRCC/SignUP/', function(req, res){
+backend.post('/:id', function(req, res){
 	console.log('submitted');
 	let x= new dbvariable();
-	x.name=req.body.name;
-	x.email=req.body.email;
-	x.password=req.body.password;
-	console.log(req.body.name);
+	x.name=req.body.RegName;
+	x.email=req.body.RegEmail;
+	x.password=req.body.RegPassword;
 
 	x.save(function(err){
 		if(err){
@@ -84,7 +111,8 @@ backend.post('/KUYRCC/SignUP/', function(req, res){
 			return;
 		}
 		else{
-			res.redirect('/');
+			req.flash('success','User is added');
+			res.redirect('/frontend');
 		}
 	});
 	return;

@@ -11,6 +11,8 @@ html
 		script(src='https://use.fontawesome.com/releases/v5.0.8/js/all.js')
 		link(href='style.css', rel='stylesheet')
 	body
+		.container.justify-content-center.text-center
+			!= messages('message',locals)
 		// Header Image
 		.d-flex.justify-content-center
 			img.img-fluid.py-3(src='KUYRCC.png', alt='KUYRCC logo')
@@ -24,11 +26,11 @@ html
 				#navbarResponsive.collapse.navbar-collapse
 					ul.navbar-nav.mr-auto
 						li.nav-item.active
-							a.nav-link(href='#')  Homme 
+							a.nav-link(href='/frontend')  Homme 
 						li.nav-item
-							a.nav-link(href='#')  Service 
+							a.nav-link(href='/checklist')  CheckList 
 						li.nav-item
-							a.nav-link(href='#')  About 
+							a.nav-link(href='/')  Starting 
 						li.nav-item
 							a.nav-link(href='#')  Contact 
 				button.btn.btn-outline-info.waves-effect.ml-0.float-md-right(type='button', data-toggle='modal', data-target='#modalLoginForm') Log In
@@ -44,13 +46,13 @@ html
 						form(action='/action_page.php')
 							.form-group.md-form.mb-5
 								label(for='email') Email:
-								input#email.form-control(type='email', placeholder='Enter email', name='email')
+								input#email.form-control(type='email', placeholder='Enter email', name='LoginEmail')
 							.form-group.md-form.mb-5
 								label(for='pwd') Password:
-								input#pwd.form-control(type='password', placeholder='Enter password', name='pswd')
+								input#pwd.form-control(type='password', placeholder='Enter password', name='LoginPassword')
 							.form-group.form-check.md-form.mb-5
 								label.form-check-label
-									input.form-check-input(type='checkbox', name='remember')
+									input.form-check-input(type='checkbox', name='LoginRemember')
 									|  Remember me
 							.form-group.md-form.mb-5
 								button.btn.btn-deep-orange(type='submit') Log In
@@ -61,21 +63,21 @@ html
 						h4.modal-title.w-100.font-weight-bold Sign up
 						button.close(type='button', data-dismiss='modal')
 					.modal-body.mx-3
-						form(action='/action_page.php')
+						form(method="POST",action='#')
 							.form-group.md-form.mb-4
 								label(for='text') Name
-								input#text.form-control(type='text', placeholder='Enter name', name='name')
+								input#text.form-control(type='text', placeholder='Enter name', name='RegName')
 							.form-group.md-form.mb-4
 								label(for='email') Email:
-								input#email.form-control(type='email', placeholder='Enter email', name='email')
+								input#email.form-control(type='email', placeholder='Enter email', name='RegEmail')
 							.form-group.md-form.mb-4
 								label(for='pwd') Password:
-								input#pwd.form-control(type='password', placeholder='Enter password', name='pswd')
+								input#pwd.form-control(type='password', placeholder='Enter password', name='RegPassword')
 							.form-group.md-form.mb-4
 								label(for='pwd') Confirm Password:
-								input#pwd.form-control(type='password', placeholder='Enter password again', name='Cpswd')
+								input#pwd.form-control(type='password', placeholder='Enter password again', name='RegCPassword')
 							.form-group.md-form.mb-4
-								button.btn.btn-deep-orange(type='submit') Log In
+								button.btn.btn-deep-orange(type='submit', value="submit") Sign Up
 	
 		block content
 			h1 this is hidden
