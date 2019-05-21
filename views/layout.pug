@@ -3,14 +3,80 @@ html
 	head
 		meta(charset='utf-8')
 		meta(name='viewport', content='width=device-width, initial-scale=1')
-		title Complete Bootstrap 4 Website Layout
+		title KUYRCC Site
 		link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css')
 		script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js')
 		script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js')
 		script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js')
 		script(src='https://use.fontawesome.com/releases/v5.0.8/js/all.js')
-		link(href='views/style.css', rel='stylesheet')
+		link(href='style.css', rel='stylesheet')
 	body
+		// Header Image
+		.d-flex.justify-content-center
+			img.img-fluid.py-3(src='KUYRCC.png', alt='KUYRCC logo')
+		// Navigation
+		nav.container.navbar.navbar-expand-md.navbar-light.bg-light.sticky-top
+			.container-fluid
+				a.navbar-brand(href='#')
+					img.img-fluid(src='kuyrccText.png')
+				button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarResponsive')
+					span.navbar-toggler-icon
+				#navbarResponsive.collapse.navbar-collapse
+					ul.navbar-nav.mr-auto
+						li.nav-item.active
+							a.nav-link(href='#')  Homme 
+						li.nav-item
+							a.nav-link(href='#')  Service 
+						li.nav-item
+							a.nav-link(href='#')  About 
+						li.nav-item
+							a.nav-link(href='#')  Contact 
+				button.btn.btn-outline-info.waves-effect.ml-0.float-md-right(type='button', data-toggle='modal', data-target='#modalLoginForm') Log In
+				button.btn.btn-outline-info.waves-effect.mr-0.flaot-md-right(type='button', data-toggle='modal', data-target='#modalRegisterForm') Sign Up
+		// -MODAL login and signup forms
+		#modalLoginForm.modal.fade(tabindex='-1', role='dialog')
+			.modal-dialog(role='document')
+				.modal-content
+					.modal-header.text-center
+						h4.modal-title.w-100.font-weight-bold Sign up
+						button.close(type='button', data-dismiss='modal')
+					.modal-body.mx-3
+						form(action='/action_page.php')
+							.form-group.md-form.mb-5
+								label(for='email') Email:
+								input#email.form-control(type='email', placeholder='Enter email', name='email')
+							.form-group.md-form.mb-5
+								label(for='pwd') Password:
+								input#pwd.form-control(type='password', placeholder='Enter password', name='pswd')
+							.form-group.form-check.md-form.mb-5
+								label.form-check-label
+									input.form-check-input(type='checkbox', name='remember')
+									|  Remember me
+							.form-group.md-form.mb-5
+								button.btn.btn-deep-orange(type='submit') Log In
+		#modalRegisterForm.modal.fade(tabindex='-1', role='dialog')
+			.modal-dialog(role='document')
+				.modal-content
+					.modal-header.text-center
+						h4.modal-title.w-100.font-weight-bold Sign up
+						button.close(type='button', data-dismiss='modal')
+					.modal-body.mx-3
+						form(action='/action_page.php')
+							.form-group.md-form.mb-4
+								label(for='text') Name
+								input#text.form-control(type='text', placeholder='Enter name', name='name')
+							.form-group.md-form.mb-4
+								label(for='email') Email:
+								input#email.form-control(type='email', placeholder='Enter email', name='email')
+							.form-group.md-form.mb-4
+								label(for='pwd') Password:
+								input#pwd.form-control(type='password', placeholder='Enter password', name='pswd')
+							.form-group.md-form.mb-4
+								label(for='pwd') Confirm Password:
+								input#pwd.form-control(type='password', placeholder='Enter password again', name='Cpswd')
+							.form-group.md-form.mb-4
+								button.btn.btn-deep-orange(type='submit') Log In
+	
 		block content
 			h1 this is hidden
 
