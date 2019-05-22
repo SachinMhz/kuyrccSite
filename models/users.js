@@ -6,13 +6,16 @@ let userSchema=mongoose.Schema({
 		type:String,
 		required: true
 	},
-
 	email:{
 		type:String,
 		required: true
 	},
 
-	password:{
+	pwd:{
+		type:String,
+		required: true
+	},
+	conpwd:{
 		type:String,
 		required: true
 	}

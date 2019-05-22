@@ -5,6 +5,8 @@ const bodyParser=require('body-parser');
 const expressValidator = require('express-validator');
 const flash =  require('connect-flash');
 const session = require('express-session');
+const passport=require('passport');
+const config=require('./config/database');
 
 mongoose.connect('mongodb://localhost:27017/KUYRCCdb');
 let db = mongoose.connection;
@@ -24,6 +26,13 @@ const backend=express();
 //defining path to img folder
 backend.use(express.static('img'));
 //backend.use(express.static(path.join(__dirname,'nameOfFile')));
+
+//passport config
+require('./config/passport')(passport);
+
+//passport middleware
+backend.use(passport.initialize());
+backend.use(passport.session());
 
 //express Session middle Middleware
 backend.use(session({
@@ -100,6 +109,17 @@ backend.get("/users/:id",function(req,res){
 		});
 	});
 });
+
+
+//Login Process
+backend.post('/login', function(req,res,nextf){
+	passport.authenticate('local',{
+		successRedirect:'/signup/register',
+		failureRedirect:'/signup/register',
+		failureFlash:true
+	})(req, res, next);
+});
+
 //add registration route
 backend.post('/:id', function(req, res){
 	console.log('submitted');
@@ -122,7 +142,8 @@ backend.post('/:id', function(req, res){
 			let x= new dbvariable();
 			x.name=req.body.RegName;
 			x.email=req.body.RegEmail;
-			x.password=req.body.RegPassword;
+			x.pwd=req.body.RegPassword;
+			x.conpwd=req.body.RegCPassword;
 
 			x.save(function(err){
 				if(err){
