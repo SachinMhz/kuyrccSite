@@ -1,26 +1,33 @@
 const LocalStrategy = require('passport-local').Strategy;
-const tuser= require('../models/users');
+const User= require('../models/users');
 const config=require('../config/database');
 const bcrypt= require('bcryptjs');
 
 module.exports=function(passport){
 	//Local Strategy
-	passport.use(new LocalStrategy(function(username, password, done){
+	passport.use(new LocalStrategy({
+		usernameField:'LoginEmail',
+		passwordField:'LoginPassword'},
+
+		function(username, password , done){
 		//Match Username
-		let query={username:username};
-		tuser.findOne(query, function(err, users){
+		let query={email:username};
+		User.findOne(query, function(err, users){
 			if(err) throw err;
 			if(!users){
 				console.log('No user');
 				return done(null, false,{message: 'No User Found'});
 
 			}
+			if(users){
+				console.log('User found');
+			}
 			//Match password
-			bcrypt.compare(password,user.password, function(err, isMatch){
+			bcrypt.compare(password,users.pwd, function(err, isMatch){
 				if(err) throw err;
 				if(isMatch){
-					return done(null,user);
 					console.log('user');
+					return done(null,users);
 				}
 				else{
 					return done(null, false,{message: 'Wrong Password'});
@@ -31,13 +38,13 @@ module.exports=function(passport){
 
 	}));
 
-	passport.serializeUser(function(user, done) {
-	  done(null, user.id);
+	passport.serializeUser(function(users, done) {
+	  done(null, users.id);
 	});
 
 	passport.deserializeUser(function(id, done) {
-	  User.findById(id, function(err, user) {
-	    done(err, user);
+	  User.findById(id, function(err, users) {
+	    done(err, users);
 	  });
 	});
 }

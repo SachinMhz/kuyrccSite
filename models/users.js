@@ -21,4 +21,13 @@ let userSchema=mongoose.Schema({
 	}
 });
 
-let user= module.exports=mongoose.model('Users',userSchema);
+var user= module.exports=mongoose.model('Users',userSchema);
+
+
+//user defined functions
+module.exports.findUserByEmail = function(email,callback){
+	var query = {email : email};
+	user.findOne(query,callback);
+	console.log(user.findOne(query));
+	return user;
+}

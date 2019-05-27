@@ -1,5 +1,9 @@
 extends layout
 block content
+	//checking is user exits
+	if users
+		.container
+			h1 Welcome #{users.email}
 	// - Image Slider
 	#slides.container.carousel.slide(data-ride='carousel')
 		ul.carousel-indicators

@@ -6,12 +6,11 @@ block content
     script(src='/js/bootstrap.min.js')
     script(src='//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js')
   body
+    h1 Title #{title} 
+    h1 welcome #{users.name}
     .wrapper.fadeInDown
       #formContent
         // Tabs Titles
-        // Icon
-        .fadeIn.first
-          img#icon(src='http://danielzawadzki.com/codepen/01/icon.svg', alt='User Icon')
         // Login Form
         form
           input#login.fadeIn.second(type='text', name='login', placeholder='login')
