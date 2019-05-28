@@ -32,7 +32,7 @@ html
 						li.nav-item
 							a.nav-link(href='/')  Starting 
 						li.nav-item
-							a.nav-link(href='#')  Contact 
+							a.nav-link(href='/users/contacts')  Contact 
 					ul.navbar-nav.mr-auto.navbar-right
 						if usersGlobal
 							li.nav-item.active
@@ -42,6 +42,10 @@ html
 								button.btn.btn-outline-info.waves-effect.ml-0.float-md-right(type='button', data-toggle='modal', data-target='#modalLoginForm') Log In
 							li
 								button.btn.btn-outline-info.waves-effect.mr-0.flaot-md-right(type='button', data-toggle='modal', data-target='#modalRegisterForm') Sign Up
+							a(href='/users/eventList/CreateEvent')
+								button.btn.btn-outline-info.waves-effect.mr-0.flaot-md-right(type='button') Create Event
+							a(href='/users/contacts')
+								button.btn.btn-outline-info.waves-effect.mr-0.flaot-md-right(type='button') Contacts 
 		
 		// -MODAL login and signup forms
 		#modalLoginForm.modal.fade(tabindex='-1', role='dialog')
@@ -51,7 +55,7 @@ html
 						h4.modal-title.w-100.font-weight-bold Log In
 						button.close(type='button', data-dismiss='modal')
 					.modal-body.mx-3
-						form(method='POST', action='/frontend')
+						form(method='POST', action='/LogIn')
 							.form-group.md-form.mb-5
 								label(for='email') Email:
 								input#email.form-control(type='email', placeholder='Enter email', name='LoginEmail')
@@ -89,10 +93,49 @@ html
 								input#pwd.form-control(type='password', placeholder='Enter password again', name='RegCPassword')
 							.form-group.md-form.mb-4
 								button.btn.btn-deep-orange(type='submit', value="submit") Sign Up
-	
-		block content
-			h1 this is hidden
-
+		
+		.container
+			block content
+				h1 this is hidden
 
 		footer
-			p Copyright @2019
+			hr.light
+			hr.light
+			.container-fluid.padding.bg-info.text-white.col-12
+				.row.text-center.padding.justify-content-center
+					.col-12
+						h1  Associated Partners 
+					.col-12.social.padding
+						a(href='#')
+							img.img-fluid.view.zoom(src='1.png', width='75px', height='75px')
+						a(href='#')
+							img.img-fluid(src='1.png', width='75px', height='75px')
+						a(href='#')
+							img.img-fluid(src='1.png', width='75px', height='75px')
+
+			.container-fluid.padding.bg-secondary.text-white.col-12
+				.row.text-center
+					.col-md-4
+						a(href='#')
+							img(src='img/kuyrccText.png', alt='logo')
+						hr.light
+						p 977-9847-738922
+						p email@gmail.com
+						p Kathmandu University 
+						p Dhulukhel, Kavre 
+					.col-md-4
+						h1  Contact 
+						hr.light
+						p 977-9847-738922
+						p email@gmail.com
+						p Kathmandu University 
+						p Dhulukhel, Kavre 
+					.col-md-4
+						h1  Content2 
+						hr.light
+						p 977-9847-738922
+						p email@gmail.com
+						p Kathmandu University 
+						p Dhulukhel, Kavre 
+		
+		script(src='/js/main.js')

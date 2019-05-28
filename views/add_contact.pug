@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  .container.text-center.col-4
+    h1 Add New Contact
+    form(method= 'POST', action= '/users/contacts/add_contact')
+      #form-group
+        label Name:
+          input.form-control(name = 'Name', type = 'text')
+      #form-group
+        label Email id:
+          input.form-control(name = 'Email_id', type = 'text')
+      #form-group
+        label Mobile No.:
+          input.form-control(name = 'Mobile_no', type = 'text')
+          
+      input.btn.btn-primary(type = 'submit', value = 'Add')

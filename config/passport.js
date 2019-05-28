@@ -26,12 +26,11 @@ module.exports=function(passport){
 			bcrypt.compare(password,users.pwd, function(err, isMatch){
 				if(err) throw err;
 				if(isMatch){
-					console.log('user');
-					return done(null,users);
+					console.log('Password Matched');
+					return done(null,users,{message: 'successfully Login'});
 				}
 				else{
 					return done(null, false,{message: 'Wrong Password'});
-
 				}
 			});
 		});

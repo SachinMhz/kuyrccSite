@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  .container.text-center.col-4
+    h1 CONTACTS  
+    a(href='/users/contacts/add_contact')
+      button.btn.btn-outline-info.waves-effect.mr-0.flaot-md-right(type='button') New Contact
+    each contact_list, i in contacts
+      .container.row.col-8
+        h5= contact_list.Name
+        h5= contact_list.Mobile_no
+        a(href="/users/contacts/edit/" + contact_list._id)= contact_list.Name

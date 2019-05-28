@@ -1,0 +1,15 @@
+extends layout
+
+block content
+	.container.text-center.col-4
+		form(method='POST', action='/users/eventList/CreateEvent')
+			#form-group
+				label Event Title:
+				input.form-control(name='event_name',type='text')
+			#form-group
+				label Event:
+				textarea.form-control(name='event_body',row='5',type='text')
+
+			input.btn.btn-primary(type='submit', value="CREATE")
+
+			

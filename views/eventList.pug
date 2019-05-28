@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  .container.text-center.col-8
+      h1 Lists of events  
+      each event_list, j in events
+        .container
+          li.list-group-item
+            h3
+              a(href="/users/eventList/edit/" + event_list._id)= event_list.event_name
+            p #{event_list.event_body}
+            
