@@ -9,6 +9,13 @@ html
 		script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js')
 		script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js')
 		script(src='https://use.fontawesome.com/releases/v5.0.8/js/all.js')
+		
+		//this script is for date picker used in membership.pug
+		//script(src='https://code.jquery.com/jquery-3.3.1.min.js')
+		//link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css', integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm', crossorigin='anonymous')
+		script(src='https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js', type='text/javascript')
+		link(href='https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css', rel='stylesheet', type='text/css')
+
 		link(href='style.css', rel='stylesheet')
 	body
 		.container.justify-content-center.text-center
@@ -30,7 +37,9 @@ html
 						li.nav-item
 							a.nav-link(href='/checklist')  CheckList 
 						li.nav-item
-							a.nav-link(href='/')  Starting 
+							a.nav-link(href='/')  Starting
+						li.nav-item
+							a.nav-link(href='/form/membership')  Become a Member  
 						li.nav-item
 							a.nav-link(href='/users/contacts')  Contact 
 					ul.navbar-nav.mr-auto.navbar-right
@@ -103,15 +112,15 @@ html
 			hr.light
 			.container-fluid.padding.bg-info.text-white.col-12
 				.row.text-center.padding.justify-content-center
-					.col-12
-						h1  Associated Partners 
-					.col-12.social.padding
-						a(href='#')
-							img.img-fluid.view.zoom(src='1.png', width='75px', height='75px')
-						a(href='#')
-							img.img-fluid(src='1.png', width='75px', height='75px')
-						a(href='#')
-							img.img-fluid(src='1.png', width='75px', height='75px')
+					.col-6
+						h1  Associated Partners
+						.row
+							a(href='#')
+								img.img-fluid.zoom(src='icon1.png', width='50px', height='50px')
+							a(href='#')
+								img.zoom(src='icon2.png', width='50px', height='50px')
+							a(href='#')
+								img.zoom(src='icon3.png', width='50px', height='50px')
 
 			.container-fluid.padding.bg-secondary.text-white.col-12
 				.row.text-center

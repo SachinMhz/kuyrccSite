@@ -153,7 +153,12 @@ backend.get('/registerPage', function(req, res){
 		title:'Register'
 	});
 });
+//adding membership form to routes
+backend.get('/form/membership',function(req,res){
+	res.render('membershipForm');
+});
 
+//adding contact to routes
 backend.get('/users/contacts', function(req, res){
 	contactVariable.find({}, function(err, contacts){
 		if(err){
@@ -287,6 +292,11 @@ backend.post('/:id', function(req, res){
 			});
 	}
 });
+
+//this is just to itest
+backend.get('/test',function(req,res){
+	res.render('test');
+})
 
 //Route Files
 let events = require('./routes/events');
