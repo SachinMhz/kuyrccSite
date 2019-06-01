@@ -39,8 +39,8 @@ backend.use('/scripts', express.static(__dirname + '/path/to/scripts'));
 //Bring in models
 let dbvariable = require('./models/users');
 let eventVariable = require('./models/events');
-let contactVariable = require('./models/contacts')
-
+let contactVariable = require('./models/contacts');
+let questionVariable = require('./models/questions');
 //passport config
 require('./config/passport')(passport);
 
@@ -154,7 +154,7 @@ backend.get('/registerPage', function(req, res){
 	});
 });
 
-backend.get('/contacts', function(req, res){
+backend.get('/users/contacts', function(req, res){
 	contactVariable.find({}, function(err, contacts){
 		if(err){
 			console.log(err);
@@ -163,6 +163,36 @@ backend.get('/contacts', function(req, res){
 			res.render('contacts',{
 				title:'All Contacts',
 				contacts: contacts
+			});
+		}
+	});
+});
+backend.post('/users/contacts',function(req,res){
+	contactVariable.find({}, function(err, contacts){
+	const questionBody = req.body.QuestionBody;
+	req.checkBody('QuestionBody','Make sure field is not empty before submission').notEmpty();
+	let errors =  req.validationErrors();
+	if(errors){
+		req.flash('success','Make sure field is not empty before submission');
+		res.render('contacts',{
+			errors:errors,
+			contacts: contacts
+		});}
+		else{
+			let x = new questionVariable();
+				x.question_body= req.body.QuestionBody;
+				x.question_UserName= req.user.name;
+				x.question_email= req.user.email;
+			x.save(function(err){
+				if(err){
+					console.log(err);
+					return;
+				}else{
+					req.flash('success','Your question has been posted');
+					res.render('contacts',{
+						contacts: contacts
+					});
+				}
 			});
 		}
 	});
@@ -214,7 +244,6 @@ backend.post('/:id', function(req, res){
 	const email=req.body.RegEmail;
 	const pwd=req.body.RegPassword;
 	const conpwd=req.body.RegCPassword;
-	console.log("registration process");
 	req.checkBody('RegName','UserName is required').notEmpty();
 	req.checkBody('RegPassword')
 		    .not().isIn(['123', 'password', 'god']).withMessage('Do not use a common word as the password')

@@ -55,11 +55,9 @@ router.post('/add_contact', function(req, res){
 		}
 		else{
 			res.redirect('/users/contacts');
+			return;
 		}
 	});
-	console.log(req.body.Name);
-	console.log('submitted');
-	return;
 });
 
 //Edit Contact
