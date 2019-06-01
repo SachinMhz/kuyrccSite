@@ -4,6 +4,8 @@ block content
 	if users
 		.container
 			h1 Welcome #{users.email}
+	.container
+		h1 welcome #{usersGlobal}
 	// - Image Slider
 	#slides.container.carousel.slide(data-ride='carousel')
 		ul.carousel-indicators
@@ -28,7 +30,7 @@ block content
 		each event, j in events
 			.container-fluid.padding.col-8
 				.card.text-center
-					h3.card-title //UserName//
+					h3.card-title #{event.event_UserName}
 					.card-body
 						h3.card-title #{event.event_name}
 						p.card-text  #{event.event_body}

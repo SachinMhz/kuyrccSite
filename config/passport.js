@@ -23,10 +23,11 @@ module.exports=function(passport){
 				console.log('User found');
 			}
 			//Match password
-			bcrypt.compare(password,users.pwd, function(err, isMatch){
+			bcrypt.compare(password,users.pwd, function(err, isMatch,callback){
 				if(err) throw err;
 				if(isMatch){
 					console.log('Password Matched');
+					console.log(users);
 					return done(null,users,{message: 'successfully Login'});
 				}
 				else{

@@ -43,8 +43,7 @@ router.post('/CreateEvent', function(req, res){
 	let x= new eventVariable();
 	x.event_name=req.body.event_name;
 	x.event_body=req.body.event_body;
-
-	console.log(req.body.event_name);
+	x.event_UserName = req.user.name; 	//to show who has posted the event
 
 	x.save(function(err){
 		if(err){

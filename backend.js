@@ -10,7 +10,8 @@ const config=require('./config/database');
 const bcrypt=require('bcryptjs');
 
 
-mongoose.connect('mongodb://localhost:27017/KUYRCCdb');
+//mongoose.connect('mongodb://localhost:27017/KUYRCCdb');
+mongoose.connect(config.database);
 let db = mongoose.connection;
 //this line was added
 //check db connection
@@ -43,16 +44,16 @@ let contactVariable = require('./models/contacts')
 //passport config
 require('./config/passport')(passport);
 
-//passport middleware
-backend.use(passport.initialize());
-backend.use(passport.session());
-
 //express Session middle Middleware
 backend.use(session({
 	secret: 'keyboard cat',
 	resave: true,
 	saveUninitialized: true
 }));
+
+//passport middleware
+backend.use(passport.initialize());
+backend.use(passport.session());
 
 //express Message  Middlewar
 backend.use(require('connect-flash')());
@@ -72,9 +73,8 @@ backend.use(bodyParser.json())
 
 //setting global variables
 backend.use(function(req,res,next){
-		res.locals.usersGlobal = req.users || null;
+		res.locals.usersGlobal = req.session.users ;
 		console.log('from backend.use');
-		console.log(req.users);
 		console.log(res.locals.usersGlobal);
 		next();
 });
@@ -98,7 +98,6 @@ backend.get("/users/detail/:id",function(req,res){
 
 //Login Process
 backend.post('/LogIn', function(req,res,next){
-
 	passport.authenticate('local',{
 		successRedirect:'/frontend',
 		successFlash:true,
@@ -117,10 +116,9 @@ backend.get('/logout',function(req,res){
 
 //setting global user variable for all url
 backend.get('*', function(req,res,next){
-	res.locals.usersGlobal=req.users || null;
-	console.log(res.locals.usersGlobal);
+	res.locals.usersGlobal=req.user || null;
 	next();
-	if(!req.users){
+	if(!req.user){
 		console.log('Express session is not started');
 	}
 	else{

@@ -7,7 +7,7 @@ $(document).ready(function(){
       url: '/users/eventList/'+id,
       success: function(response){
         alert('Deleting Event');
-        window.location.href="/";
+        window.location.href="/frontend";
 
       },
       error: function(err){
@@ -26,7 +26,7 @@ $(document).ready(function(){
       url: '/users/contacts/'+id,
       success: function(response){
         alert('Deleting Contact');
-        window.location.href="/";
+        window.location.href="/frontend";
       },
       error: function(err){
         console.log(err);
